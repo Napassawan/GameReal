@@ -16,9 +16,6 @@ int main()
 	sf::Font font;
 	font.loadFromFile("font/FSEX300.ttf");
 
-	sf::Texture menuTex;
-	sf::Sprite menubg;
-
 	videoMode = sf::VideoMode(900, 600);
 	window = new sf::RenderWindow(videoMode, "The Collector", sf::Style::Close | sf::Style::Titlebar);
 	auto image = sf::Image{};
@@ -77,13 +74,6 @@ int main()
 			if (menu.getBounds_0().contains(mousePosview)) {
 				menu.buttoncheck(0);
 				if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-					if (!menuTex.loadFromFile("img/bgMenu.png"))
-					{
-						printf("ERROR::GAME::BACKGROUND");
-					}
-
-					menubg.setTexture(menuTex);
-					menu.Draw(window);
 					gamestate = 1;
 				}
 			}
