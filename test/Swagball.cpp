@@ -33,7 +33,7 @@ void Swagball::initShape(const sf::RenderWindow& window)
 		this->M1.setOutlineColor(sf::Color::White);
 		this->M1.setOutlineThickness(3.f);
 		break;
-	case TEN:
+	case DIVIDE:
 		color = sf::Color::Cyan;
 		this->M1.setOutlineColor(sf::Color::White);
 		this->M1.setOutlineThickness(3.f);

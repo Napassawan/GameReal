@@ -118,19 +118,19 @@ const bool& Game::getEndGame() const
 
 void Game::pollEvent()
 {
-	while (this->window->pollEvent(this->sfmlEvent))
-	{
-		switch (this->sfmlEvent.type)
-		{
-		case sf::Event::Closed:
-			this->window->close();
-			break;
-		case sf::Event::KeyPressed:
-			if (this->sfmlEvent.key.code == sf::Keyboard::Escape)
-				this->window->close();
-			break;
-		}
-	}
+	//while (this->window->pollEvent(this->sfmlEvent))
+	//{
+	//	switch (this->sfmlEvent.type)
+	//	{
+	//	case sf::Event::Closed:
+	//		this->window->close();
+	//		break;
+	//	case sf::Event::KeyPressed:
+	//		if (this->sfmlEvent.key.code == sf::Keyboard::Escape)
+	//			this->window->close();
+	//		break;
+	//	}
+	//}
 }
 
 void Game::spawnSwagBalls()
@@ -155,14 +155,14 @@ const int Game::randomballType() const
 	int type = SwagBallTypes::DEFAULT;
 
 	int randValue = rand() % 100 + 1;
-	if (randValue > 60 && randValue <= 80)
+	if (randValue > 45 && randValue <= 60)
 		type = SwagBallTypes::DAMAGING;
-	else if (randValue > 80 && randValue <= 85)
+	else if (randValue > 65 && randValue <= 80)
 		type = SwagBallTypes::HEALING;
-	else if (randValue > 85 && randValue <= 90)
+	else if (randValue > 89 && randValue <= 90)
 		type = SwagBallTypes::DOUBLE;
-	else if (randValue == 100)
-		type = SwagBallTypes::TEN;
+	else if (randValue > 99 && randValue <= 100)
+		type = SwagBallTypes::DIVIDE;
 	return type;
 }
 
@@ -183,21 +183,57 @@ void Game::updateCollision()
 			switch (this->swagBalls[i].getType())
 			{
 			case SwagBallTypes::DEFAULT:
-				this->points = points + 50;
+				this->points = points + 100;
+				if (!getP.loadFromFile("sound/getPoint.wav"))
+				{
+					printf_s("ERROR::SOUND EFFECT");
+				}
+				soundP.setBuffer(getP);
+				soundP.setVolume(2.f);
+				soundP.play();
 				break;
 			case SwagBallTypes::HEALING:
 				this->player.gainHealth(1);
 				this->points = points + 50;
+				if (!getHP.loadFromFile("sound/getHP.wav"))
+				{
+					printf_s("ERROR::SOUND EFFECT");
+				}
+				soundHP.setBuffer(getHP);
+				soundHP.setVolume(2.f);
+				soundHP.play();
 				break;
 			case SwagBallTypes::DAMAGING:
-				this->player.takeDamage(2);
-				this->points = points - 100;
+				this->player.takeDamage(1);
+				this->points = points - 100;				
+				if (!getDMG.loadFromFile("sound/getDmg.wav"))
+				{
+					printf_s("ERROR::SOUND EFFECT");
+				}
+				soundDMG.setBuffer(getDMG);
+				soundDMG.setVolume(5.f);
+				soundDMG.play();
 				break;
 			case SwagBallTypes::DOUBLE:
 				this->points = points * 2;
+				if (!getDOU.loadFromFile("sound/getDou.wav"))
+				{
+					printf_s("ERROR::SOUND EFFECT");
+				}
+				soundDOU.setBuffer(getDOU);
+				soundDOU.setVolume(5.f);
+				soundDOU.play();
+			
 				break;
-			case SwagBallTypes::TEN:
-				this->points = points * 10;
+			case SwagBallTypes::DIVIDE:
+				if (!getDIV.loadFromFile("sound/getDiv.wav"))
+				{
+					printf_s("ERROR::SOUND EFFECT");
+				}
+				soundDIV.setBuffer(getDIV);
+				soundDIV.setVolume(20.f);
+				soundDIV.play();
+				this->points = points / 2;
 				break;
 			}
 			this->swagBalls.erase(this->swagBalls.begin() + i);
@@ -222,7 +258,7 @@ void Game::updateWorld()
 void Game::update(sf::RenderWindow* window)
 {
 	this->window = window;
-	this->pollEvent();
+	//this->pollEvent();
 
 	if (this->endGame == false)
 	{
@@ -258,7 +294,7 @@ void Game::renderHeart()
 
 void Game::render()
 {
-	this->window->clear();
+	
 	this->renderSky();
 	this->renderWorld();
 
@@ -274,5 +310,5 @@ void Game::render()
 	if (this->endGame == true)
 		this->window->draw(this->endGameText);
 
-	this->window->display();
+
 }

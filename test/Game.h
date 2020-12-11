@@ -7,6 +7,7 @@
 #include <map>
 #include "Player.h"
 #include "Swagball.h"
+#include "Menu.h"
 #include <SFML/Audio.hpp>
 #include <SFML/Window.hpp>
 
@@ -37,6 +38,22 @@ private:
 
 	sf::Shader parallaxShader;
 	sf::Clock clockbg;
+
+	sf::SoundBuffer getP;
+	sf::Sound soundP;
+
+	sf::SoundBuffer getHP;
+	sf::Sound soundHP;
+
+	sf::SoundBuffer getDMG;
+	sf::Sound soundDMG;
+
+	sf::SoundBuffer getDOU;
+	sf::Sound soundDOU;
+
+	sf::SoundBuffer getDIV;
+	sf::Sound soundDIV;
+
 	float offset = 0.0f;
 
 	std::vector<Swagball> swagBalls;
@@ -73,4 +90,5 @@ public:
 	void renderWorld();
 	void renderHeart();
 	void render();
+
 };

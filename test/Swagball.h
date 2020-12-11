@@ -1,12 +1,13 @@
 #pragma once
 
+
 #include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
 #include <SFML/System.hpp>
 #include <SFML/Window.hpp>
 #include <SFML/Network.hpp>
 
-enum SwagBallTypes { DEFAULT = 0, DAMAGING, DOUBLE, HEALING, NROFTYPES, TEN };
+enum SwagBallTypes { DEFAULT = 0, DAMAGING, DOUBLE, HEALING, NROFTYPES, DIVIDE };
 
 class Swagball
 {
@@ -19,9 +20,9 @@ private:
 	sf::Texture M1Tex;
 
 
-	int random_between(int min, int max)
+	float random_between(float min, float max)
 	{
-		int r = (rand() / (float)RAND_MAX) * (max + 1) + min;
+		float r = (rand() / (float)RAND_MAX) * (max + 1) + min;
 		return r > max ? max : r;
 	}
 
