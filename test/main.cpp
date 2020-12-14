@@ -1,9 +1,26 @@
+#define _CRT_SECURE_NO_WARNINGS
 #include <SFML/Graphics.hpp>
 #include<SFML/Audio.hpp>
 #include "Game.h"
 #include "Menu.h"
 #include "Textbox.h"
+#include<utility>
+#include<algorithm>
+#include<vector>
+#include<iostream>
+#include<string>
+#include<sstream>
+using namespace std;
 
+void showhighscore(int x, int y, string word, sf::RenderWindow& window, sf::Font* font)
+{
+	sf::Text text;
+	text.setFont(*font);
+	text.setPosition(x, y);
+	text.setString(word);
+	text.setCharacterSize(120); //setsize
+	window.draw(text);
+}
 int main()
 {
 	int gamestate = 0;
@@ -28,15 +45,7 @@ int main()
 	window->setVerticalSyncEnabled(true);
 	window->setFramerateLimit(60);
 	
-	sf::Music musicPlay , musicMenu , test;
-
-	if (!test.openFromFile("sound/getHP.wav"))
-	{
-		printf_s("ERROR::MUSIC");
-	}
-	test.setLoop(true);
-	test.setVolume(20.f);
-	test.play();
+	sf::Music musicPlay , musicMenu ;
 
 	/*if (!musicPlay.openFromFile("sound/play.ogg"))
 	{
@@ -59,8 +68,23 @@ int main()
 	
 	Textbox playernametextbox(100, sf::Color::White, true);
 	playernametextbox.setFont(font);
-	playernametextbox.setPosition({ 500.f,320.f });
+	playernametextbox.setPosition({ 500.f,320.f }); //position textbox
 	playernametextbox.setlimit(true, 10);
+
+	FILE* fp;
+	char temp[255];
+	int score[6];
+	string name[6];
+	vector<pair<int, string>>userScore;
+
+	fp = fopen("./score.txt", "r");
+	for (int i = 0; i < 5; i++) {
+		fscanf(fp, "%s", &temp);
+		name[i] = temp;
+		fscanf(fp, "%d", &score[i]);
+		userScore.push_back(make_pair(score[i], name[i]));
+	}
+	fclose(fp);
 
 	while (window->isOpen())
 	{
@@ -71,6 +95,9 @@ int main()
 			case sf::Event::Closed:
 				window->close();
 			case sf::Event::TextEntered:
+				if (gamestate == 4) {
+					playernametextbox.typeOn(e);
+				}
 				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
 					gamestate = 0;
 				}
@@ -84,7 +111,7 @@ int main()
 			if (menu.getBounds_0().contains(mousePosview)) {
 				menu.buttoncheck(0);
 				if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-					gamestate = 1;
+					gamestate = 4;
 				}
 			}
 			else if (menu.getBounds_1().contains(mousePosview)) {
@@ -106,7 +133,6 @@ int main()
 				}
 			}
 			menu.Draw(window);
-			playernametextbox.drawTo(*window);
 		}
 		else if (gamestate == 1) {
 			game.update(window);
@@ -117,8 +143,24 @@ int main()
 		}
 		else if (gamestate == 3) {
 			menu.Drawhigh(window);
+			showhighscore(0, 10, to_string(userScore[0].first), *window, &font);
+			showhighscore(100, 10, userScore[0].second, *window, &font);
+			showhighscore(0, 20, to_string(userScore[1].first), *window, &font);
+			showhighscore(100, 20, userScore[1].second, *window, &font);
+			showhighscore(0, 30, to_string(userScore[2].first), *window, &font);
+			showhighscore(100, 30, userScore[2].second, *window, &font);
+			showhighscore(0, 40, to_string(userScore[3].first), *window, &font);
+			showhighscore(100, 40, userScore[3].second, *window, &font);
+			showhighscore(0, 50, to_string(userScore[4].first), *window, &font);
+			showhighscore(100, 50, userScore[4].second, *window, &font);
 		}
-
+		else if (gamestate == 4) {
+			menu.Drawname(window);
+			playernametextbox.drawTo(*window);
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)) {
+				gamestate = 1;
+			}
+		}
 		window->display();
 	}
 	return 0;
