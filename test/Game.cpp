@@ -166,6 +166,16 @@ const int Game::randomballType() const
 	return type;
 }
 
+const int Game::returnHp() const
+{
+	return this->player.getHp();
+}
+
+const int Game::returnScore() const
+{
+	return this->points;
+}
+
 void Game::updatePlayer()
 {
 	this->player.update(this->window);

@@ -64,6 +64,10 @@ int main()
 	Menu menu(900,600);
 	Game game;
 
+	bool cangetnewscores ;
+	sf::Clock dietimes;
+	int pointkeep;
+
 	sf::Event e;
 	
 	Textbox playernametextbox(100, sf::Color::White, true);
@@ -76,6 +80,8 @@ int main()
 	int score[6];
 	string name[6];
 	vector<pair<int, string>>userScore;
+
+	int j = 0;
 
 	fp = fopen("./score.txt", "r");
 	for (int i = 0; i < 5; i++) {
@@ -135,8 +141,33 @@ int main()
 			menu.Draw(window);
 		}
 		else if (gamestate == 1) {
-			game.update(window);
-			game.render();
+
+			if (game.returnHp() != 0) {
+				game.update(window);
+				game.render();
+				cangetnewscores = false;
+			}
+			else if (game.returnHp() == 0 && cangetnewscores == false) {
+				cangetnewscores = true;
+				dietimes.restart();
+			}
+			else if (game.returnHp() == 0 && cangetnewscores && dietimes.getElapsedTime().asSeconds() > 3.f) {
+				j++;
+				pointkeep = game.returnScore();
+				fp = fopen("./score.txt", "r");
+				score[5] = pointkeep;
+				userScore.push_back(make_pair(score[5], name[5]));
+				sort(userScore.begin(), userScore.end());
+				fclose(fp);
+				fopen("./score.txt", "w");
+				for (int i = 4 + j; i >= 0 + j; i--) {
+					strcpy(temp, userScore[i].second.c_str());
+					fprintf(fp, "%s %d\n", temp, userScore[i].first);
+				}
+				fclose(fp);
+				cangetnewscores = false;
+				gamestate = 0;
+			}
 		}
 		else if (gamestate == 2) {
 			menu.Drawhowto(window);
@@ -158,6 +189,7 @@ int main()
 			menu.Drawname(window);
 			playernametextbox.drawTo(*window);
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)) {
+				name[5] = playernametextbox.gettext();
 				gamestate = 1;
 			}
 		}

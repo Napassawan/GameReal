@@ -79,6 +79,8 @@ public:
 
 	void spawnSwagBalls();
 	const int randomballType() const;
+	const int returnHp() const;
+	const int returnScore() const;
 	void updatePlayer();
 	void updateCollision();
 	void updateGUI();
