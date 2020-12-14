@@ -248,6 +248,17 @@ void Game::updateCollision()
 			}
 			this->swagBalls.erase(this->swagBalls.begin() + i);
 		}
+		if (this->player.getHp() == 0) {
+			if (swagBalls.size() == 1) {
+				this->swagBalls.erase(this->swagBalls.begin());
+			}
+			else {
+				if (i == 0) {
+					this->swagBalls.erase(this->swagBalls.begin());
+				}
+				this->swagBalls.erase(this->swagBalls.begin() + i);
+			}
+		}
 	}
 }
 
@@ -278,6 +289,14 @@ void Game::update(sf::RenderWindow* window)
 		this->updateGUI();
 		this->updateWorld();
 	}
+}
+
+void Game::restart()
+{
+	this->updateCollision();
+	this->player.setHp(10);
+	this->points = 0;
+	this->player.resetposition();
 }
 
 void Game::renderGUI(sf::RenderTarget* target)

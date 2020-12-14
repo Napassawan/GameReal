@@ -44,6 +44,9 @@ public:
 	void takeDamage(const int damage);
 	void gainHealth(const int health);
 
+	void setHp(int value);
+	void resetposition();
+
 	void updateInput();
 	void updateAnimation();
 	void updateCollision(const sf::RenderTarget* target);

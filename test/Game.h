@@ -86,6 +86,7 @@ public:
 	void updateGUI();
 	void updateWorld();
 	void update(sf::RenderWindow* window);
+	void restart();
 
 	void renderGUI(sf::RenderTarget* target);
 	void renderSky();

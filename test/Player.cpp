@@ -79,6 +79,16 @@ void Player::gainHealth(const int health)
 		this->hp = this->hpMax;
 }
 
+void Player::setHp(int value)
+{
+	this->hp = value;
+}
+
+void Player::resetposition()
+{
+	this->Char.setPosition(415, 250);
+}
+
 void Player::updateInput()
 {
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))

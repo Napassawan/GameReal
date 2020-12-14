@@ -65,6 +65,7 @@ int main()
 	Game game;
 
 	bool cangetnewscores ;
+	bool firstendgames = false;
 	sf::Clock dietimes;
 	int pointkeep;
 
@@ -148,6 +149,7 @@ int main()
 				cangetnewscores = false;
 			}
 			else if (game.returnHp() == 0 && cangetnewscores == false) {
+				//die face
 				cangetnewscores = true;
 				dietimes.restart();
 			}
@@ -166,6 +168,7 @@ int main()
 				}
 				fclose(fp);
 				cangetnewscores = false;
+				game.restart();
 				gamestate = 0;
 			}
 		}
@@ -174,16 +177,30 @@ int main()
 		}
 		else if (gamestate == 3) {
 			menu.Drawhigh(window);
-			showhighscore(0, 10, to_string(userScore[0].first), *window, &font);
-			showhighscore(100, 10, userScore[0].second, *window, &font);
-			showhighscore(0, 20, to_string(userScore[1].first), *window, &font);
-			showhighscore(100, 20, userScore[1].second, *window, &font);
-			showhighscore(0, 30, to_string(userScore[2].first), *window, &font);
-			showhighscore(100, 30, userScore[2].second, *window, &font);
-			showhighscore(0, 40, to_string(userScore[3].first), *window, &font);
-			showhighscore(100, 40, userScore[3].second, *window, &font);
-			showhighscore(0, 50, to_string(userScore[4].first), *window, &font);
-			showhighscore(100, 50, userScore[4].second, *window, &font);
+			if (firstendgames == false) {
+				showhighscore(0, 10, to_string(userScore[0].first), *window, &font);
+				showhighscore(100, 10, userScore[0].second, *window, &font);
+				showhighscore(0, 20, to_string(userScore[1].first), *window, &font);
+				showhighscore(100, 20, userScore[1].second, *window, &font);
+				showhighscore(0, 30, to_string(userScore[2].first), *window, &font);
+				showhighscore(100, 30, userScore[2].second, *window, &font);
+				showhighscore(0, 40, to_string(userScore[3].first), *window, &font);
+				showhighscore(100, 40, userScore[3].second, *window, &font);
+				showhighscore(0, 50, to_string(userScore[4].first), *window, &font);
+				showhighscore(100, 50, userScore[4].second, *window, &font);
+			}
+			else if (firstendgames == true) {
+				showhighscore(0, 10, to_string(userScore[4+j].first), *window, &font);
+				showhighscore(100, 10, userScore[4 + j].second, *window, &font);
+				showhighscore(0, 20, to_string(userScore[3 + j].first), *window, &font);
+				showhighscore(100, 20, userScore[3 + j].second, *window, &font);
+				showhighscore(0, 30, to_string(userScore[2 + j].first), *window, &font);
+				showhighscore(100, 30, userScore[2 + j].second, *window, &font);
+				showhighscore(0, 40, to_string(userScore[1 + j].first), *window, &font);
+				showhighscore(100, 40, userScore[1 + j].second, *window, &font);
+				showhighscore(0, 50, to_string(userScore[j].first), *window, &font);
+				showhighscore(100, 50, userScore[j].second, *window, &font);
+			}
 		}
 		else if (gamestate == 4) {
 			menu.Drawname(window);
