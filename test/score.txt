@@ -1,5 +1,5 @@
 hh 6850
 Fosus 2650
+fo 2500
 hh 1800
 tingtong 1600
-Focus 1575

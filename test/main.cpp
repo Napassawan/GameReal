@@ -47,19 +47,19 @@ int main()
 	
 	sf::Music musicPlay , musicMenu ;
 
-	/*if (!musicPlay.openFromFile("sound/play.ogg"))
+	if (!musicPlay.openFromFile("sound/play.ogg"))
 	{
 		printf_s("ERROR::MUSIC");
 	}
 	musicPlay.setLoop(true);
 	musicPlay.setVolume(20.f);
-	musicPlay.play();*/
 
-	/*if (!musicMenu.openFromFile("sound/op.ogg"))
+	if (!musicMenu.openFromFile("sound/op.wav"))
 	{
 		printf_s("ERROR::MUSIC");
 	}
-	musicMenu.play();*/
+	musicMenu.play();
+	musicMenu.setLoop(true);
 
 	Menu menu(900,600);
 	Game game;
@@ -142,7 +142,7 @@ int main()
 			menu.Draw(window);
 		}
 		else if (gamestate == 1) {
-
+			musicMenu.pause();
 			if (game.returnHp() != 0) {
 				game.update(window);
 				game.render();
@@ -169,6 +169,8 @@ int main()
 				fclose(fp);
 				cangetnewscores = false;
 				game.restart();
+				musicMenu.play();
+				musicPlay.pause();
 				gamestate = 0;
 			}
 		}
@@ -208,6 +210,7 @@ int main()
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)) {
 				name[5] = playernametextbox.gettext();
 				gamestate = 1;
+				musicPlay.play();
 			}
 		}
 		window->display();
