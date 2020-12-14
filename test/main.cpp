@@ -28,7 +28,16 @@ int main()
 	window->setVerticalSyncEnabled(true);
 	window->setFramerateLimit(60);
 	
-	sf::Music musicPlay , musicMenu;
+	sf::Music musicPlay , musicMenu , test;
+
+	if (!test.openFromFile("sound/getHP.wav"))
+	{
+		printf_s("ERROR::MUSIC");
+	}
+	test.setLoop(true);
+	test.setVolume(20.f);
+	test.play();
+
 	/*if (!musicPlay.openFromFile("sound/play.ogg"))
 	{
 		printf_s("ERROR::MUSIC");
@@ -71,6 +80,7 @@ int main()
 		mousePosWindow = sf::Mouse::getPosition(*window);
 		mousePosview = window->mapPixelToCoords(mousePosWindow);
 		if (gamestate == 0) {
+			menu.Drawmenu(window);
 			if (menu.getBounds_0().contains(mousePosview)) {
 				menu.buttoncheck(0);
 				if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
@@ -79,13 +89,21 @@ int main()
 			}
 			else if (menu.getBounds_1().contains(mousePosview)) {
 				menu.buttoncheck(1);
-
+				if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+					gamestate = 2;
+				}
 			}
 			else if (menu.getBounds_2().contains(mousePosview)) {
 				menu.buttoncheck(2);
+				if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+					gamestate = 3;
+				}
 			}
 			else if (menu.getBounds_3().contains(mousePosview)) {
 				menu.buttoncheck(3);
+				if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+					window->close();
+				}
 			}
 			menu.Draw(window);
 			playernametextbox.drawTo(*window);
@@ -95,12 +113,10 @@ int main()
 			game.render();
 		}
 		else if (gamestate == 2) {
-			game.update(window);
-			game.render();
+			menu.Drawhowto(window);
 		}
 		else if (gamestate == 3) {
-			game.update(window);
-			game.render();
+			menu.Drawhigh(window);
 		}
 
 		window->display();

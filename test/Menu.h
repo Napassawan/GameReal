@@ -17,6 +17,11 @@ public:
     const sf::FloatRect getBounds_2() const;
     const sf::FloatRect getBounds_3() const;
     void Draw(RenderWindow* window);
+    void Drawhowto(RenderWindow* window);
+    void Drawhigh(RenderWindow* window);
+    void Drawname(RenderWindow* window);
+    void Drawmenu(RenderWindow* window);
+
     void MoveUp();
     void MovedDown();
     void MenuUpdate(float dt);
@@ -28,4 +33,16 @@ private:
     Text text[NUM_OF_LINE];
     float KeyTimer;
     float KeyLapse;
+
+    sf::Texture menutextures;
+    sf::Sprite menusprite;
+
+    sf::Texture howtotextures;
+    sf::Sprite howtosprite;
+
+    sf::Texture hightextures;
+    sf::Sprite highsprite;
+
+    sf::Texture nametextures;
+    sf::Sprite namesprite;
 };

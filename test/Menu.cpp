@@ -7,38 +7,50 @@ Menu::Menu(float width, float height)
 
     this->font.loadFromFile("font/FSEX300.ttf");
     text[0].setFont(font);
-    text[0].setFillColor(Color::Red);
+    text[0].setFillColor(Color::White);
     text[0].setOutlineColor(sf::Color::White);
     text[0].setOutlineThickness(1.f);
     text[0].setString("New Game");
-    text[0].setCharacterSize(30);
-    text[0].setPosition(Vector2f(50, 100));
+    text[0].setCharacterSize(32);
+    text[0].setPosition(Vector2f(50, 110));
 
     text[1].setFont(font);
     text[1].setFillColor(Color::White);
     text[1].setOutlineColor(sf::Color::White);
     text[1].setOutlineThickness(1.f);
     text[1].setString("How to play");
-    text[1].setCharacterSize(30);
-    text[1].setPosition(Vector2f(50, 150));
+    text[1].setCharacterSize(32);
+    text[1].setPosition(Vector2f(50, 160));
 
     text[2].setFont(font);
     text[2].setFillColor(Color::White);
     text[2].setOutlineColor(sf::Color::White);
     text[2].setOutlineThickness(1.f);
-    text[2].setString("High Scores");
-    text[2].setCharacterSize(30);
-    text[2].setPosition(Vector2f(50, 200));
+    text[2].setString("High Score");
+    text[2].setCharacterSize(32);
+    text[2].setPosition(Vector2f(50, 210));
 
     text[3].setFont(font);
     text[3].setFillColor(Color::White);
     text[3].setOutlineColor(sf::Color::White);
     text[3].setOutlineThickness(1.f);
     text[3].setString("Quit");
-    text[3].setCharacterSize(30);
-    text[3].setPosition(Vector2f(50, 250));
+    text[3].setCharacterSize(32);
+    text[3].setPosition(Vector2f(50, 260));
 
     currentLineIndex = 0;
+
+    this->menutextures.loadFromFile("img/bgMenu.png");
+    this->menusprite.setTexture(this->menutextures);
+
+    this->hightextures.loadFromFile("img/bgHighsc.png");
+    this->highsprite.setTexture(this->hightextures);
+
+    this->howtotextures.loadFromFile("img/Howto.png");
+    this->howtosprite.setTexture(this->howtotextures);
+
+    this->nametextures.loadFromFile("img/bgName.png");
+    this->namesprite.setTexture(this->nametextures);
 }
 
 Menu::~Menu()
@@ -85,6 +97,26 @@ void Menu::Draw(RenderWindow* window)
     {
         window->draw(text[i]);
     }
+}
+
+void Menu::Drawhowto(RenderWindow* window)
+{
+    window->draw(this->howtosprite);
+}
+
+void Menu::Drawhigh(RenderWindow* window)
+{
+    window->draw(this->highsprite);
+}
+
+void Menu::Drawname(RenderWindow* window)
+{
+    window->draw(this->namesprite);
+}
+
+void Menu::Drawmenu(RenderWindow* window)
+{
+    window->draw(this->menusprite);
 }
 
 void Menu::MoveUp()
