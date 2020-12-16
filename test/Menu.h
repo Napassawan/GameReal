@@ -21,6 +21,7 @@ public:
     void Drawhigh(RenderWindow* window);
     void Drawname(RenderWindow* window);
     void Drawmenu(RenderWindow* window);
+    void Drawdie(RenderWindow* window);
 
     void MoveUp();
     void MovedDown();
@@ -45,4 +46,7 @@ private:
 
     sf::Texture nametextures;
     sf::Sprite namesprite;
+
+    sf::Texture dietextures;
+    sf::Sprite diesprite;
 };

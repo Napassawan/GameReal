@@ -159,9 +159,9 @@ const int Game::randomballType() const
 		type = SwagBallTypes::DAMAGING;
 	else if (randValue > 65 && randValue <= 80)
 		type = SwagBallTypes::HEALING;
-	else if (randValue > 89 && randValue <= 90)
+	else if (randValue > 96 && randValue <= 98)
 		type = SwagBallTypes::DOUBLE;
-	else if (randValue > 99 && randValue <= 100)
+	else if (randValue > 98 && randValue <= 100)
 		type = SwagBallTypes::DIVIDE;
 	return type;
 }
@@ -199,7 +199,7 @@ void Game::updateCollision()
 					printf_s("ERROR::SOUND EFFECT");
 				}
 				soundP.setBuffer(getP);
-				soundP.setVolume(2.f);
+				soundP.setVolume(10.f);
 				soundP.play();
 				break;
 			case SwagBallTypes::HEALING:
@@ -210,18 +210,18 @@ void Game::updateCollision()
 					printf_s("ERROR::SOUND EFFECT");
 				}
 				soundHP.setBuffer(getHP);
-				soundHP.setVolume(2.f);
+				soundHP.setVolume(10.f);
 				soundHP.play();
 				break;
 			case SwagBallTypes::DAMAGING:
 				this->player.takeDamage(1);
-				this->points = points - 100;				
+				this->points = points - 50;				
 				if (!getDMG.loadFromFile("sound/getDmg.wav"))
 				{
 					printf_s("ERROR::SOUND EFFECT");
 				}
 				soundDMG.setBuffer(getDMG);
-				soundDMG.setVolume(5.f);
+				soundDMG.setVolume(10.f);
 				soundDMG.play();
 				break;
 			case SwagBallTypes::DOUBLE:
@@ -231,7 +231,7 @@ void Game::updateCollision()
 					printf_s("ERROR::SOUND EFFECT");
 				}
 				soundDOU.setBuffer(getDOU);
-				soundDOU.setVolume(5.f);
+				soundDOU.setVolume(10.f);
 				soundDOU.play();
 			
 				break;
@@ -241,7 +241,7 @@ void Game::updateCollision()
 					printf_s("ERROR::SOUND EFFECT");
 				}
 				soundDIV.setBuffer(getDIV);
-				soundDIV.setVolume(20.f);
+				soundDIV.setVolume(10.f);
 				soundDIV.play();
 				this->points = points / 2;
 				break;

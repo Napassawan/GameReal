@@ -18,7 +18,7 @@ void showhighscore(int x, int y, string word, sf::RenderWindow& window, sf::Font
 	text.setFont(*font);
 	text.setPosition(x, y);
 	text.setString(word);
-	text.setCharacterSize(120); //setsize
+	text.setCharacterSize(65); //setsize
 	window.draw(text);
 }
 int main()
@@ -58,8 +58,9 @@ int main()
 	{
 		printf_s("ERROR::MUSIC");
 	}
-	musicMenu.play();
+	musicMenu.setVolume(20.f);
 	musicMenu.setLoop(true);
+	musicMenu.play();
 
 	Menu menu(900,600);
 	Game game;
@@ -71,9 +72,9 @@ int main()
 
 	sf::Event e;
 	
-	Textbox playernametextbox(100, sf::Color::White, true);
+	Textbox playernametextbox(80, sf::Color::White, true);
 	playernametextbox.setFont(font);
-	playernametextbox.setPosition({ 500.f,320.f }); //position textbox
+	playernametextbox.setPosition({ 350.f,250.f }); //position textbox
 	playernametextbox.setlimit(true, 10);
 
 	FILE* fp;
@@ -149,7 +150,7 @@ int main()
 				cangetnewscores = false;
 			}
 			else if (game.returnHp() == 0 && cangetnewscores == false) {
-				//die face
+				menu.Drawdie(window);
 				cangetnewscores = true;
 				dietimes.restart();
 			}
@@ -180,16 +181,16 @@ int main()
 		else if (gamestate == 3) {
 			menu.Drawhigh(window);
 			if (firstendgames == false) {
-				showhighscore(0, 10, to_string(userScore[0].first), *window, &font);
-				showhighscore(100, 10, userScore[0].second, *window, &font);
-				showhighscore(0, 20, to_string(userScore[1].first), *window, &font);
-				showhighscore(100, 20, userScore[1].second, *window, &font);
-				showhighscore(0, 30, to_string(userScore[2].first), *window, &font);
-				showhighscore(100, 30, userScore[2].second, *window, &font);
-				showhighscore(0, 40, to_string(userScore[3].first), *window, &font);
-				showhighscore(100, 40, userScore[3].second, *window, &font);
-				showhighscore(0, 50, to_string(userScore[4].first), *window, &font);
-				showhighscore(100, 50, userScore[4].second, *window, &font);
+				showhighscore(630, 120, to_string(userScore[0].first), *window, &font);
+				showhighscore(120, 120, userScore[0].second, *window, &font);
+				showhighscore(630, 200, to_string(userScore[1].first), *window, &font);
+				showhighscore(120, 200, userScore[1].second, *window, &font);
+				showhighscore(630, 280, to_string(userScore[2].first), *window, &font);
+				showhighscore(120, 280, userScore[2].second, *window, &font);
+				showhighscore(630, 360, to_string(userScore[3].first), *window, &font);
+				showhighscore(120, 360, userScore[3].second, *window, &font);
+				showhighscore(630, 440, to_string(userScore[4].first), *window, &font);
+				showhighscore(120, 440, userScore[4].second, *window, &font);
 			}
 			else if (firstendgames == true) {
 				showhighscore(0, 10, to_string(userScore[4+j].first), *window, &font);

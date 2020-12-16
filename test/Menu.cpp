@@ -51,6 +51,9 @@ Menu::Menu(float width, float height)
 
     this->nametextures.loadFromFile("img/bgName.png");
     this->namesprite.setTexture(this->nametextures);
+
+    this->dietextures.loadFromFile("img/gameover.png");
+    this->diesprite.setTexture(this->dietextures);
 }
 
 Menu::~Menu()
@@ -117,6 +120,11 @@ void Menu::Drawname(RenderWindow* window)
 void Menu::Drawmenu(RenderWindow* window)
 {
     window->draw(this->menusprite);
+}
+
+void Menu::Drawdie(RenderWindow* window)
+{
+    window->draw(this->diesprite);
 }
 
 void Menu::MoveUp()
